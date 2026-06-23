@@ -17,147 +17,7 @@ This subsystem is where a player **proves** their effort. It serves account **re
 
 Describes the whole Kingdom system (15 entities), shared across the team; the modules in this README are Anas's.
 
-```mermaid
-classDiagram
-    class User {
-        Integer id
-        String email
-        String username
-        String phoneNumber
-        String password
-        UserRole role
-        boolean phoneVerified
-    }
-    class Player {
-        Integer id
-        String displayName
-        String interests
-        LocalDateTime joinedAt
-    }
-    class Subscription {
-        Integer id
-        String lemonSubscriptionId
-        LocalDateTime startDate
-        SubscriptionStatus status
-        LocalDateTime expiresAt
-        boolean autoRenew
-        SubscriptionPlan plan
-    }
-    class ConnectedAccount {
-        Integer id
-        ConnectedProvider provider
-        String accessToken
-        String refreshToken
-        LocalDateTime expiresAt
-        String externalUserId
-        String status
-        LocalDateTime connectedAt
-    }
-    class Kingdom {
-        Integer id
-        String name
-        String description
-        KingdomType type
-    }
-    class KingdomMembership {
-        Integer id
-        Integer totalXP
-        Integer division
-        Integer streak
-        LocalDateTime joinedAt
-    }
-    class PeriodScore {
-        Integer id
-        Period period
-        LocalDateTime startDate
-        LocalDateTime endDate
-        Integer seasonalXp
-    }
-    class Challenge {
-        Integer id
-        String title
-        String description
-        Period period
-        LocalDateTime startDate
-        LocalDateTime endDate
-        Difficulty difficulty
-        Integer xpReward
-        Integer targetValue
-        String verificationSource
-        String metricKey
-        String verificationRule
-        ChallengeScope scope
-    }
-    class ChallengeProgress {
-        Integer id
-        ProgressStatus status
-        LocalDateTime startAt
-        LocalDateTime finishedAt
-        RejectionReason rejectionReason
-        Integer verifiedValue
-        Integer currentQuestionIndex
-    }
-    class ChallengeQuestion {
-        Integer id
-        String question
-        String optionA
-        String optionB
-        String optionC
-        String optionD
-        String correctAnswer
-    }
-    class Badge {
-        Integer id
-        String name
-        String description
-        BadgeType type
-        Integer requiredValue
-    }
-    class PlayerBadge {
-        Integer id
-        LocalDateTime earnedAt
-    }
-    class Lobby {
-        Integer id
-        Integer hostPlayerId
-        String name
-        String description
-        LobbyVisibility visibility
-        LocalDateTime startsAt
-        LocalDateTime endsAt
-        Integer division
-        LobbyStatus status
-        Integer winnerPlayerId
-    }
-    class LobbyMember {
-        Integer id
-        MemberRole role
-        LocalDateTime joinedAt
-    }
-    class LobbyInvite {
-        Integer id
-        InviteStatus status
-        LocalDateTime sentAt
-        LocalDateTime respondedAt
-    }
-    User "1" --> "1" Player : player
-    Player "1" --> "1" Subscription
-    Player "1" --> "*" ConnectedAccount
-    Player "1" --> "*" KingdomMembership
-    Player "1" --> "*" PlayerBadge
-    Kingdom "1" --> "*" KingdomMembership
-    Kingdom "1" --> "*" Challenge
-    Kingdom "1" --> "*" Badge
-    Kingdom "1" --> "*" Lobby
-    KingdomMembership "1" --> "*" PeriodScore
-    KingdomMembership "1" --> "*" ChallengeProgress
-    Challenge "1" --> "*" ChallengeProgress
-    Challenge "1" --> "*" ChallengeQuestion
-    Challenge "1" --> "1" Lobby : lobby challenge
-    Badge "1" --> "*" PlayerBadge
-    Lobby "1" --> "*" LobbyMember
-    Lobby "1" --> "*" LobbyInvite
-```
+![Class diagram — Kingdom system](docs/class-diagram.png)
 
 ## Use case diagram
 
@@ -188,7 +48,6 @@ Base URL `http://localhost:8080` (local) or the [live deployment](http://kingdom
 | POST | `/challenge-progress/join/{challengeId}` | Join a challenge — starts a progress run. |
 | POST | `/challenge-progress/finish/{id}` | Finish a run (triggers verification + XP). |
 | POST | `/challenge-progress/cancel/{id}` | Cancel an in-progress run. |
-| POST | `/challenge-progress/submit-image/{progressId}` | Submit a meal photo (`image` multipart) for AI analysis. |
 | GET | `/challenge-progress/player` | The logged-in player's runs. |
 | GET | `/challenge-progress/player/active` | The player's active runs. |
 | GET | `/challenge-progress/player/status/{status}` | The player's runs by status. |
@@ -208,11 +67,10 @@ Base URL `http://localhost:8080` (local) or the [live deployment](http://kingdom
 | POST | `/verify/charity/manual-donate/{membershipId}/{challengeId}` | 🔒 Record a donation (SAR) for charity-lobby ranking. |
 | POST | `/verify/volunteer/upload` | Upload a certificate PDF (`file`); AI verifies + completes the run. |
 
-### Inbound WhatsApp & streaks — `/api/v1/verify` · `/api/v1/whatsapp`
+### Inbound WhatsApp & streaks — `/api/v1/verify`
 | Method | Path | What it does |
 | --- | --- | --- |
 | POST | `/verify/volunteer/whatsapp` | Twilio webhook: routes PDF→volunteer, image→nutrition, قبول/رفض→invite, else→quiz answer (TwiML). |
-| POST | `/whatsapp/webhook` | Inbound food-image webhook (async meal analysis, TwiML ack). |
 | POST | `/verify/streak/run` | 🔒 Run the daily streak reset/warn pass now. |
 | POST | `/verify/streak/warn/{playerId}/{kingdomId}` | 🔒 Send the "streak ends in 6 hours" WhatsApp warning. |
 
