@@ -32,7 +32,7 @@ Challenges are **AI-generated** per kingdom with **OpenAI (gpt-5.5)** via the Re
 
 ## My endpoints
 
-Base URL `http://localhost:8080` (local) or the [live deployment](http://kingdom-env.eba-qz67sy59.eu-central-1.elasticbeanstalk.com), all under `/api/v1`. Full interactive reference: **[Postman API documentation](https://documenter.getpostman.com/view/52784213/2sBXwwn7pE)**. Auth is HTTP Basic; 🔒 = admin-only.
+Base URL `http://localhost:8080` (local) or the [live deployment](http://kingdom-env.eba-qz67sy59.eu-central-1.elasticbeanstalk.com), all under `/api/v1`. Full interactive reference: **[Postman API documentation](https://documenter.getpostman.com/view/52784213/2sBXwwn7pE)**. Auth is HTTP Basic; 🔒 = admin-only. These are the **key** endpoints; the full CRUD set is in the Postman docs.
 
 ### Register & verify — `/api/v1/auth`
 | Method | Path | What it does |
@@ -44,6 +44,8 @@ Base URL `http://localhost:8080` (local) or the [live deployment](http://kingdom
 ### Challenges — `/api/v1/challenge` · `/api/v1/challenge-progress`
 | Method | Path | What it does |
 | --- | --- | --- |
+| GET | `/challenge/get` | List all challenges. |
+| GET | `/challenge/get/{id}` | One challenge's details. |
 | GET | `/challenge/kingdom/{kingdomId}` | List a kingdom's challenges (browse-by-kingdom). |
 | GET | `/challenge/difficulty/{difficulty}` | List challenges by difficulty. |
 | GET | `/challenge/period/{period}` | List challenges by period (daily/weekly…). |
@@ -84,10 +86,11 @@ Base URL `http://localhost:8080` (local) or the [live deployment](http://kingdom
 | GET | `/connecte/player` | The player's linked accounts (token-free). |
 | DELETE | `/connecte/disconnect/{provider}` | Unlink a provider. |
 
-### Resolve lobby — `/api/v1/lobby`
+### Resolve lobby — `/api/v1/lobby` · `/api/v1/lobby-challenge`
 | Method | Path | What it does |
 | --- | --- | --- |
 | POST | `/lobby/finish/{lobbyId}/{winnerPlayerId}` | Close out a lobby competition and award the winner. |
+| POST | `/lobby-challenge/resolve/{lobbyId}` | Resolve a lobby challenge — first to finish & verify wins, then the lobby closes. |
 
 ## Tech stack
 
