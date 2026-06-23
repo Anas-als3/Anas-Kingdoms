@@ -2,6 +2,9 @@
 
 > Challenges, real verification, registration, and lobby resolution for a gamified Arabic-first self-improvement platform.
 
+**🌐 Live API:** http://kingdom-env.eba-qz67sy59.eu-central-1.elasticbeanstalk.com  
+**📖 API documentation:** [Postman published docs](https://documenter.getpostman.com/view/52784213/2sBXwwn7pE)
+
 ## Overview
 
 **الممالك (Kingdom)** منصّة عربية لتطوير الذات بأسلوب الألعاب. ينضمّ اللاعب إلى **ممالك** متنوّعة (اللياقة، الصدقة، التطوّع، القراءة، الألعاب، الإيمان، المعرفة، التغذية، البرمجة)، ويخوض **تحدّيات يولّدها الذكاء الاصطناعي**، وعليه أن **يُثبت** إكمال كل تحدٍّ عبر تحقّق حقيقي — أنشطة Strava، أو تبرّعات بنكية عبر المصرفية المفتوحة (Neotek)، أو شهادات تطوّع يراجعها الذكاء الاصطناعي، أو اختبارات على واتساب، أو تحليل صور الوجبات، أو وقت اللعب والإنجازات على Steam، أو مساهمات GitHub. التحدّيات المُثبَتة تمنح **نقاط خبرة (XP)** ترفع **درجة اللاعب** (من D3 إلى D1) وتُكسبه **أوسمة**؛ كما **يتنافس اللاعبون في لوبيات** (يفتح اشتراك Premium عبر LemonSqueezy إنشاءها).
@@ -166,7 +169,7 @@ Challenges are **AI-generated** per kingdom with **OpenAI (gpt-5.5)** via the Re
 
 ## My endpoints
 
-Base URL `http://localhost:8080`, all under `/api/v1`. Auth is HTTP Basic; 🔒 = admin-only.
+Base URL `http://localhost:8080` (local) or the [live deployment](http://kingdom-env.eba-qz67sy59.eu-central-1.elasticbeanstalk.com), all under `/api/v1`. Full interactive reference: **[Postman API documentation](https://documenter.getpostman.com/view/52784213/2sBXwwn7pE)**. Auth is HTTP Basic; 🔒 = admin-only.
 
 ### Register & verify — `/api/v1/auth`
 | Method | Path | What it does |
@@ -236,7 +239,9 @@ Java 17 · Spring Boot 4.0.6 · Spring Web · Spring Data JPA (Hibernate) · MyS
 mvn spring-boot:run
 ```
 
-- Base URL: `http://localhost:8080/api/v1`
+- Local base URL: `http://localhost:8080/api/v1`
+- Live deployment: `http://kingdom-env.eba-qz67sy59.eu-central-1.elasticbeanstalk.com/api/v1`
+- API documentation (Postman): https://documenter.getpostman.com/view/52784213/2sBXwwn7pE
 - Provide secrets as env vars (or a git-ignored `src/main/resources/application-local.properties`): `OPENAI_API_KEY`, `TWILIO_ACCOUNT_SID`/`TWILIO_AUTH_TOKEN`, `MAILTRAP_API_TOKEN`, `STRAVA_*`, `NEOTEK_*`.
 - For deployment set `SPRING_JPA_HIBERNATE_DDL_AUTO=update` and `DEMO_SEED_ENABLED=false`.
 
