@@ -23,7 +23,6 @@ classDiagram
         String phoneNumber
         String password
         UserRole role
-        boolean phoneVerified
     }
     class Player {
         Integer id
@@ -75,11 +74,14 @@ classDiagram
         String title
         String description
         Period period
+        LocalDateTime startDate
+        LocalDateTime endDate
         Difficulty difficulty
         Integer xpReward
         Integer targetValue
         String verificationSource
         String metricKey
+        String verificationRule
         ChallengeScope scope
     }
     class ChallengeProgress {
@@ -115,6 +117,7 @@ classDiagram
         Integer id
         Integer hostPlayerId
         String name
+        String description
         LobbyVisibility visibility
         LocalDateTime startsAt
         LocalDateTime endsAt
