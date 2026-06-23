@@ -158,53 +158,7 @@ classDiagram
 
 ## Use case diagram
 
-```mermaid
-flowchart LR
-    Player(("Player"))
-    Admin(("Admin"))
-    subgraph KS["Kingdoms System"]
-        direction TB
-        u1["Register / Login"]
-        u2["Get Kingdom Recommendation by AI"]
-        u3["View / Join Kingdoms"]
-        u4["View / Join Challenges"]
-        u5["Link External Account"]
-        u6["Complete Challenge"]
-        u7["Verify Challenge Completion"]
-        u8["Earn XP / Badge"]
-        u9["View Leaderboard"]
-        u10["Get Lobby Recommendation by AI"]
-        u11["View / Join Lobbies"]
-        u12["Create Lobby"]
-        ua1["Generate Challenge by AI"]
-        u13["Create Public Lobby"]
-        u14["Create Private Lobby"]
-        u15["Invite Player to Lobby"]
-        u16["Manage Subscription"]
-        u17["Generate AI Player Report"]
-        ua2["Manage Badges"]
-    end
-    Player --> u1
-    Player --> u2
-    Player --> u3
-    Player --> u4
-    Player --> u5
-    Player --> u6
-    Player --> u9
-    Player --> u10
-    Player --> u11
-    Player --> u12
-    Player --> u16
-    Player --> u17
-    Admin --> ua1
-    Admin --> ua2
-    u6 -. include .-> u7
-    u8 -. extend .-> u7
-    u12 -. include .-> ua1
-    u13 -. extend .-> u12
-    u14 -. extend .-> u12
-    u14 -. include .-> u15
-```
+![Use case diagram — Kingdoms System](docs/use-case-diagram.png)
 
 ## AI in Kingdom
 
