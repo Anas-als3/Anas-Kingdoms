@@ -23,6 +23,7 @@ classDiagram
         String phoneNumber
         String password
         UserRole role
+        boolean phoneVerified
     }
     class Player {
         Integer id
@@ -162,6 +163,7 @@ flowchart LR
     Player(("Player"))
     Admin(("Admin"))
     subgraph KS["Kingdoms System"]
+        direction TB
         u1["Register / Login"]
         u2["Get Kingdom Recommendation by AI"]
         u3["View / Join Kingdoms"]
@@ -174,12 +176,12 @@ flowchart LR
         u10["Get Lobby Recommendation by AI"]
         u11["View / Join Lobbies"]
         u12["Create Lobby"]
+        ua1["Generate Challenge by AI"]
         u13["Create Public Lobby"]
         u14["Create Private Lobby"]
         u15["Invite Player to Lobby"]
         u16["Manage Subscription"]
         u17["Generate AI Player Report"]
-        ua1["Generate Challenge by AI"]
         ua2["Manage Badges"]
     end
     Player --> u1
