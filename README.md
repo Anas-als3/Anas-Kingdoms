@@ -111,4 +111,4 @@ mvn spring-boot:run
 
 ## Team
 
-Graduation project — built by **Anas**, **Shahad**, and **Maysun**. The modules documented in this README belong to **Anas** (challenges, verification, register, lobby resolution — Fitness / Charity / Volunteer).
+ This Project— built by **Anas**, **Shahad**, and **Maysun**. The modules documented in this README belong to **Anas** (challenges, verification, register, lobby resolution — Fitness / Charity / Volunteer).
